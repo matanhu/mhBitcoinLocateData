@@ -197,6 +197,22 @@ function checkTwoNumbers(cryptoType, lastRate, newRate) {
         }
         return;
     }
+
+    if (lastRate.buyPrice > 100 || newRate.buyPrice > 100 || lastRate.sellPrice > 100 || newRate.sellPrice > 100) {
+        if ((Math.floor(lastRate.buyPrice / 10) != Math.floor(newRate.buyPrice / 10)) ||
+            (Math.floor(lastRate.sellPrice / 10) != Math.floor(newRate.sellPrice / 10))) {
+            EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
+            if (isSendFcm) {
+                FcmSender.sendFcm(cryptoType, newRate, lastRate, function () {
+                    isSendFcm = false;
+                    setTimeout(function () {
+                        isSendFcm = true;
+                    }, 600000);
+                });
+            }
+        }
+        return;
+    }
 }
 
 setInterval(getB2C_BTC, 1000);
