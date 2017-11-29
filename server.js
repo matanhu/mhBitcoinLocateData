@@ -15,48 +15,30 @@ function getB2C_BTC() {
     bit2c.getTicker('BtcNis', function (error, ticker) {
 
         try {
-            console.log('BtcNis Start at: ' + new Date());
             if (error) {
-                console.log(error);
+                console.error('bit2c.getTicker error BtcNis: ' + error  + ' ' + new Date());
             } else {
-                // console.log(ticker);
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
                     date: new Date()
                 };
                 B2C_BTC.getLastRate(function (err, rows) {
-                    // console.log(rows);
                     if (err) {
-                        console.error('error is: ' + err);
+                        console.error('B2C_BTC.getLastRate error is: ' + err + ' ' + new Date());
                     } else {
                         // if(rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
                         if (rows && !rows.length || (Math.abs(rows[0].sellPrice - rate.sellPrice) > 10 || Math.abs(rows[0].buyPrice - rate.buyPrice) > 10)) {
-                            B2C_BTC.addRate(rate, function () { console.log('Databes Inserted'); });
+                            B2C_BTC.addRate(rate, function () { console.log('B2C_BTC.addRate BtcNis: Databes Inserted ' + new Date()); });
                             if (rows[0]) {
                                 checkTwoNumbers('BtcNis', rows[0], rate);
                             }
                         }
                     }
                 });
-                if (ticker.h < price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Low of: ' + price);
-                }
-                if (ticker.h > price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Over of: ' + price);
-                }
-                if (ticker.l < price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Low of: ' + price);
-                }
-                if (ticker.l > price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Over of: ' + price);
-                }
-                console.log('End at: ' + new Date());
-                console.log('');
-                console.log('');
             }
         } catch (ex) {
-            console.error('BtcNis Exception: ' + ex);
+            console.error('bit2c.getTicker exeption BtcNis: ' + ex  + ' ' + new Date());
         }
 
     });
@@ -66,49 +48,30 @@ function getB2C_BCH() {
     bit2c.getTicker('BchNis', function (error, ticker) {
 
         try {
-            console.log('BchNis Start at: ' + new Date());
             if (error) {
-                console.log(error);
+                console.error('bit2c.getTicker error BchNis: ' + error  + ' ' + new Date());
             } else {
-                // console.log(ticker);
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
                     date: new Date()
                 };
                 B2C_BCH.getLastRate(function (err, rows) {
-                    // console.log(rows);
                     if (err) {
-                        console.error('error is: ' + err);
+                        console.error('B2C_BCH.getLastRate error is: ' + err + ' ' + new Date());
                     } else {
                         // if (rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
-                            if(rows && !rows.length || (Math.abs(rows[0].sellPrice - rate.sellPrice) > 10 || Math.abs(rows[0].buyPrice - rate.buyPrice) > 10)) {
-                            B2C_BCH.addRate(rate, function () { console.log('Databes Inserted'); });
+                        if (rows && !rows.length || (Math.abs(rows[0].sellPrice - rate.sellPrice) > 10 || Math.abs(rows[0].buyPrice - rate.buyPrice) > 10)) {
+                            B2C_BCH.addRate(rate, function () { console.log('B2C_BCH.addRate BchNis: Databes Inserted ' + new Date()); });
                             if (rows[0]) {
                                 checkTwoNumbers('BchNis', rows[0], rate);
-                                // FcmSender.sendFcm('BchNis', rows[0], rate);
                             }
                         }
                     }
                 });
-                if (ticker.h < price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Low of: ' + price);
-                }
-                if (ticker.h > price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Over of: ' + price);
-                }
-                if (ticker.l < price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Low of: ' + price);
-                }
-                if (ticker.l > price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Over of: ' + price);
-                }
-                console.log('BchNis End at: ' + new Date());
-                console.log('');
-                console.log('');
             }
         } catch (ex) {
-            console.error('Exception: ' + ex);
+            console.error('bit2c.getTicker exeption BchNis: ' + ex  + ' ' + new Date());
         }
 
     });
@@ -118,49 +81,30 @@ function getB2C_LTC() {
     bit2c.getTicker('LtcNis', function (error, ticker) {
 
         try {
-            console.log('LtcNis Start at: ' + new Date());
             if (error) {
-                console.log(error);
+                console.error('bit2c.getTicker error LtcNis: ' + error  + ' ' + new Date());
             } else {
-                // console.log(ticker);
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
                     date: new Date()
                 };
                 B2C_LTC.getLastRate(function (err, rows) {
-                    // console.log(rows);
                     if (err) {
-                        console.error('error is: ' + err);
+                        console.error('B2C_LTC.getLastRate error is: ' + err + ' ' + new Date());
                     } else {
                         // if (rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
-                            if(rows && !rows.length || (Math.abs(rows[0].sellPrice - rate.sellPrice) > 10 || Math.abs(rows[0].buyPrice - rate.buyPrice) > 10)) {
-                            B2C_LTC.addRate(rate, function () { console.log('Databes Inserted'); });
+                        if (rows && !rows.length || (Math.abs(rows[0].sellPrice - rate.sellPrice) > 10 || Math.abs(rows[0].buyPrice - rate.buyPrice) > 10)) {
+                            B2C_LTC.addRate(rate, function () { console.log('B2C_LTC.addRate LtcNis: Databes Inserted ' + new Date()); });
                             if (rows[0]) {
                                 checkTwoNumbers('LtcNis', rows[0], rate);
-                                // FcmSender.sendFcm('LtcNis', rows[0], rate);
                             }
                         }
                     }
                 });
-                if (ticker.h < price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Low of: ' + price);
-                }
-                if (ticker.h > price) {
-                    console.log(' The Price to Buy is: ' + ticker.h + ' Over of: ' + price);
-                }
-                if (ticker.l < price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Low of: ' + price);
-                }
-                if (ticker.l > price) {
-                    console.log(' The Price to Sell is: ' + ticker.l + ' Over of: ' + price);
-                }
-                console.log('LtcNis End at: ' + new Date());
-                console.log('');
-                console.log('');
             }
         } catch (ex) {
-            console.error('Exception: ' + ex);
+            console.error('bit2c.getTicker exeption LtcNis: ' + ex  + ' ' + new Date());
         }
 
     });
@@ -215,6 +159,59 @@ function checkTwoNumbers(cryptoType, lastRate, newRate) {
     }
 }
 
+function sendReport() {
+    bit2c.getTicker('BtcNis', function (error, ticker) {
+        try {
+            if (error) {
+                console.log(error);
+            } else {
+                var btc = {
+                    sellPrice: ticker.l,
+                    buyPrice: ticker.h,
+                    date: new Date()
+                };
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+        bit2c.getTicker('BchNis', function (error, ticker) {
+            try {
+                if (error) {
+                    console.log(error);
+                } else {
+                    var bch = {
+                        sellPrice: ticker.l,
+                        buyPrice: ticker.h,
+                        date: new Date()
+                    };
+                }
+            } catch (ex) {
+                console.error(ex);
+            }
+            bit2c.getTicker('LtcNis', function (error, ticker) {
+                try {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        // console.log(ticker);
+                        var ltc = {
+                            sellPrice: ticker.l,
+                            buyPrice: ticker.h,
+                            date: new Date()
+                        };
+                        FcmSender.sendFcmReport(btc, bch, ltc, function () {
+                            console.log('Report sent');
+                        });
+                    }
+                } catch (ex) {
+                    console.error(ex);
+                }
+            })
+        })
+    })
+}   
+
 setInterval(getB2C_BTC, 1000);
 setInterval(getB2C_BCH, 1000);
 setInterval(getB2C_LTC, 1000);
+setInterval(sendReport, 3600000);
