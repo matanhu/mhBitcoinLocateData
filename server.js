@@ -5,7 +5,9 @@ var B2C_Firebase = require('./BTC_FIREBASE/B2C_BTC');
 // var B2C_LTC = require('./B2C/B2C_LTC');
 var EmailFactory = require('./Factories/emailFactory');
 var FcmSender = require('./Factories/FCM');
-var app = express();
+
+var express = require('express'); // for Heroku
+var app = express(); // for Heroku
 
 // getting current ticker
 
