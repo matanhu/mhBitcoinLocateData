@@ -1,7 +1,8 @@
 var bit2c = require('bit2c');
-var B2C_BTC = require('./B2C/B2C_BTC');
-var B2C_BCH = require('./B2C/B2C_BCH');
-var B2C_LTC = require('./B2C/B2C_LTC');
+// var B2C_BTC = require('./B2C/B2C_BTC');
+var B2C_Firebase = require('./BTC_FIREBASE/B2C_BTC');
+// var B2C_BCH = require('./B2C/B2C_BCH');
+// var B2C_LTC = require('./B2C/B2C_LTC');
 var EmailFactory = require('./Factories/emailFactory');
 var FcmSender = require('./Factories/FCM');
 
@@ -11,6 +12,7 @@ let price = 25000;
 var count = 1;
 var isSendFcm = true;
 
+/*
 function getB2C_BTC() {
     bit2c.getTicker('BtcNis', function (error, ticker) {
 
@@ -43,13 +45,61 @@ function getB2C_BTC() {
 
     });
 }
+*/
 
+function getB2C_BTC() {
+    bit2c.getTicker('BtcNis', function (error, ticker) {
+
+        try {
+            if (error) {
+                console.error('bit2c.getTicker error BtcNis: ' + error + ' ' + new Date());
+                setTimeout(getB2C_BTC, 1000);
+                return;
+            } else {
+                var rate = {
+                    sellPrice: ticker.l,
+                    buyPrice: ticker.h,
+                    date: new Date()
+                };
+                B2C_Firebase.getLastRate('BTC').then((snapshot) => {
+                    var arraySnapshot = snapshotToArray(snapshot);
+                    // if(rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
+                    if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
+                        B2C_Firebase.addRate('BTC', rate).then((value) => {
+                            console.log('B2C_BTC.addRate BtcNis: Databes Inserted ' + new Date());
+                            setTimeout(getB2C_BTC, 1000);
+                        }, (err) => {
+                            console.error("B2C_BTC.addRate(rate) Error: " + err + ' ' + new Date());
+                            setTimeout(getB2C_BTC, 1000);
+                            return;
+                        });
+                        // if (rows[0]) {
+                            checkTwoNumbers('BtcNis', arraySnapshot[0], rate);
+                        // }
+                    } else {
+                        setTimeout(getB2C_BTC, 1000);
+                        return;
+                    }
+                }, (err)=> {
+                    console.error("B2C_BTC.getLastRate() Error: " + err + ' ' + new Date());
+                    setTimeout(getB2C_BTC, 1000);
+                    return;
+                });
+            }
+        } catch (ex) {
+            console.error('bit2c.getTicker exeption BtcNis: ' + ex + ' ' + new Date());
+        }
+
+    });
+}
+
+/*
 function getB2C_BCH() {
     bit2c.getTicker('BchNis', function (error, ticker) {
 
         try {
             if (error) {
-                console.error('bit2c.getTicker error BchNis: ' + error  + ' ' + new Date());
+                console.error('bit2c.getTicker error BchNis: ' + error + ' ' + new Date());
             } else {
                 var rate = {
                     sellPrice: ticker.l,
@@ -71,18 +121,66 @@ function getB2C_BCH() {
                 });
             }
         } catch (ex) {
-            console.error('bit2c.getTicker exeption BchNis: ' + ex  + ' ' + new Date());
+            console.error('bit2c.getTicker exeption BchNis: ' + ex + ' ' + new Date());
+        }
+
+    });
+}
+*/
+
+function getB2C_BCH() {
+    bit2c.getTicker('BchNis', function (error, ticker) {
+
+        try {
+            if (error) {
+                console.error('bit2c.getTicker error BchNis: ' + error + ' ' + new Date());
+                setTimeout(getB2C_BCH, 1000);
+                return;
+            } else {
+                var rate = {
+                    sellPrice: ticker.l,
+                    buyPrice: ticker.h,
+                    date: new Date()
+                };
+                B2C_Firebase.getLastRate('BCH').then((snapshot) => {
+                    var arraySnapshot = snapshotToArray(snapshot);
+                    // if(rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
+                    if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
+                        B2C_Firebase.addRate('BCH', rate).then((value) => {
+                            console.log('B2C_BCH.addRate BchNis: Databes Inserted ' + new Date());
+                            setTimeout(getB2C_BCH, 1000);
+                        }, (err) => {
+                            console.error("B2C_BCH.addRate(rate) Error: " + err + ' ' + new Date());
+                            setTimeout(getB2C_BCH, 1000);
+                            return;
+                        });
+                        // if (rows[0]) {
+                            checkTwoNumbers('BchNis', arraySnapshot[0], rate);
+                        // }
+                    } else {
+                        setTimeout(getB2C_BCH, 1000);
+                        return;
+                    }
+                }, (err)=> {
+                    console.error("B2C_BCH.getLastRate() Error: " + err + ' ' + new Date());
+                    setTimeout(getB2C_BCH, 1000);
+                    return;
+                });
+            }
+        } catch (ex) {
+            console.error('bit2c.getTicker exeption BchNis: ' + ex + ' ' + new Date());
         }
 
     });
 }
 
+/*
 function getB2C_LTC() {
     bit2c.getTicker('LtcNis', function (error, ticker) {
 
         try {
             if (error) {
-                console.error('bit2c.getTicker error LtcNis: ' + error  + ' ' + new Date());
+                console.error('bit2c.getTicker error LtcNis: ' + error + ' ' + new Date());
             } else {
                 var rate = {
                     sellPrice: ticker.l,
@@ -104,7 +202,54 @@ function getB2C_LTC() {
                 });
             }
         } catch (ex) {
-            console.error('bit2c.getTicker exeption LtcNis: ' + ex  + ' ' + new Date());
+            console.error('bit2c.getTicker exeption LtcNis: ' + ex + ' ' + new Date());
+        }
+
+    });
+}
+*/
+
+function getB2C_LTC() {
+    bit2c.getTicker('LtcNis', function (error, ticker) {
+
+        try {
+            if (error) {
+                console.error('bit2c.getTicker error LtcNis: ' + error + ' ' + new Date());
+                setTimeout(getB2C_LTC, 1000);
+                return;
+            } else {
+                var rate = {
+                    sellPrice: ticker.l,
+                    buyPrice: ticker.h,
+                    date: new Date()
+                };
+                B2C_Firebase.getLastRate('LTC').then((snapshot) => {
+                    var arraySnapshot = snapshotToArray(snapshot);
+                    // if(rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
+                    if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
+                        B2C_Firebase.addRate('LTC', rate).then((value) => {
+                            console.log('B2C_LTC.addRate LtcNis: Databes Inserted ' + new Date());
+                            setTimeout(getB2C_LTC, 1000);
+                        }, (err) => {
+                            console.error("B2C_LTC.addRate(rate) Error: " + err + ' ' + new Date());
+                            setTimeout(getB2C_LTC, 1000);
+                            return;
+                        });
+                        // if (rows[0]) {
+                            checkTwoNumbers('LtcNis', arraySnapshot[0], rate);
+                        // }
+                    } else {
+                        setTimeout(getB2C_LTC, 1000);
+                        return;
+                    }
+                }, (err)=> {
+                    console.error("B2C_LTC.getLastRate() Error: " + err + ' ' + new Date());
+                    setTimeout(getB2C_LTC, 1000);
+                    return;
+                });
+            }
+        } catch (ex) {
+            console.error('bit2c.getTicker exeption LtcNis: ' + ex + ' ' + new Date());
         }
 
     });
@@ -209,9 +354,25 @@ function sendReport() {
             })
         })
     })
-}   
+}
 
-setInterval(getB2C_BTC, 1000);
-setInterval(getB2C_BCH, 1000);
-setInterval(getB2C_LTC, 1000);
+function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+    });
+
+    return returnArr;
+};
+
+// setInterval(getB2C_BTCH 1000);
+setTimeout(getB2C_BTC, 1000);
+// setInterval(getB2C_BCH, 1000);
+setTimeout(getB2C_BCH, 1000);
+// setInterval(getB2C_LTC, 1000);
+setTimeout(getB2C_LTC, 1000);
 setInterval(sendReport, 3600000);
