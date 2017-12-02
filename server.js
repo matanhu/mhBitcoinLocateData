@@ -56,7 +56,7 @@ function getB2C_BTC() {
         try {
             if (error) {
                 console.error('bit2c.getTicker error BtcNis: ' + error + ' ' + new Date());
-                setTimeout(getB2C_BTC, 1000);
+                setTimeout(getB2C_BTC, 5000);
                 return;
             } else {
                 var rate = {
@@ -70,22 +70,22 @@ function getB2C_BTC() {
                     if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
                         B2C_Firebase.addRate('BTC', rate).then((value) => {
                             console.log('B2C_BTC.addRate BtcNis: Databes Inserted ' + new Date());
-                            setTimeout(getB2C_BTC, 1000);
+                            setTimeout(getB2C_BTC, 5000);
                         }, (err) => {
                             console.error("B2C_BTC.addRate(rate) Error: " + err + ' ' + new Date());
-                            setTimeout(getB2C_BTC, 1000);
+                            setTimeout(getB2C_BTC, 5000);
                             return;
                         });
-                        // if (rows[0]) {
+                        if (arraySnapshot.length > 0) {
                             checkTwoNumbers('BtcNis', arraySnapshot[0], rate);
-                        // }
+                        }
                     } else {
-                        setTimeout(getB2C_BTC, 1000);
+                        setTimeout(getB2C_BTC, 5000);
                         return;
                     }
                 }, (err)=> {
                     console.error("B2C_BTC.getLastRate() Error: " + err + ' ' + new Date());
-                    setTimeout(getB2C_BTC, 1000);
+                    setTimeout(getB2C_BTC, 5000);
                     return;
                 });
             }
@@ -137,7 +137,7 @@ function getB2C_BCH() {
         try {
             if (error) {
                 console.error('bit2c.getTicker error BchNis: ' + error + ' ' + new Date());
-                setTimeout(getB2C_BCH, 1000);
+                setTimeout(getB2C_BCH, 5000);
                 return;
             } else {
                 var rate = {
@@ -151,22 +151,22 @@ function getB2C_BCH() {
                     if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
                         B2C_Firebase.addRate('BCH', rate).then((value) => {
                             console.log('B2C_BCH.addRate BchNis: Databes Inserted ' + new Date());
-                            setTimeout(getB2C_BCH, 1000);
+                            setTimeout(getB2C_BCH, 5000);
                         }, (err) => {
                             console.error("B2C_BCH.addRate(rate) Error: " + err + ' ' + new Date());
-                            setTimeout(getB2C_BCH, 1000);
+                            setTimeout(getB2C_BCH, 5000);
                             return;
                         });
-                        // if (rows[0]) {
+                        if (arraySnapshot.length > 0) {
                             checkTwoNumbers('BchNis', arraySnapshot[0], rate);
-                        // }
+                        }
                     } else {
-                        setTimeout(getB2C_BCH, 1000);
+                        setTimeout(getB2C_BCH, 5000);
                         return;
                     }
                 }, (err)=> {
                     console.error("B2C_BCH.getLastRate() Error: " + err + ' ' + new Date());
-                    setTimeout(getB2C_BCH, 1000);
+                    setTimeout(getB2C_BCH, 5000);
                     return;
                 });
             }
@@ -218,7 +218,7 @@ function getB2C_LTC() {
         try {
             if (error) {
                 console.error('bit2c.getTicker error LtcNis: ' + error + ' ' + new Date());
-                setTimeout(getB2C_LTC, 1000);
+                setTimeout(getB2C_LTC, 5000);
                 return;
             } else {
                 var rate = {
@@ -232,22 +232,22 @@ function getB2C_LTC() {
                     if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
                         B2C_Firebase.addRate('LTC', rate).then((value) => {
                             console.log('B2C_LTC.addRate LtcNis: Databes Inserted ' + new Date());
-                            setTimeout(getB2C_LTC, 1000);
+                            setTimeout(getB2C_LTC, 5000);
                         }, (err) => {
                             console.error("B2C_LTC.addRate(rate) Error: " + err + ' ' + new Date());
-                            setTimeout(getB2C_LTC, 1000);
+                            setTimeout(getB2C_LTC, 5000);
                             return;
                         });
-                        // if (rows[0]) {
+                        if (arraySnapshot.length > 0) {
                             checkTwoNumbers('LtcNis', arraySnapshot[0], rate);
-                        // }
+                        }
                     } else {
-                        setTimeout(getB2C_LTC, 1000);
+                        setTimeout(getB2C_LTC, 5000);
                         return;
                     }
                 }, (err)=> {
                     console.error("B2C_LTC.getLastRate() Error: " + err + ' ' + new Date());
-                    setTimeout(getB2C_LTC, 1000);
+                    setTimeout(getB2C_LTC, 5000);
                     return;
                 });
             }
@@ -372,12 +372,15 @@ function snapshotToArray(snapshot) {
     return returnArr;
 };
 
-// setInterval(getB2C_BTCH 1000);
-setTimeout(getB2C_BTC, 1000);
-// setInterval(getB2C_BCH, 1000);
-setTimeout(getB2C_BCH, 1000);
-// setInterval(getB2C_LTC, 1000);
-setTimeout(getB2C_LTC, 1000);
+// setInterval(getB2C_BTCH 5000);
+setTimeout(getB2C_BTC, 5000);
+
+// setInterval(getB2C_BCH, 5000);
+setTimeout(getB2C_BCH, 5000);
+
+// setInterval(getB2C_LTC, 5000);
+setTimeout(getB2C_LTC, 5000);
+
 setInterval(sendReport, 3600000);
 
 var port = Number(process.env.PORT || 3000);
