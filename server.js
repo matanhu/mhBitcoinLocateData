@@ -62,7 +62,7 @@ function getB2C_BTC() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
-                    last: ticker.a,
+                    volume: ticker.a,
                     avarage: ticker.av,
                     date: new Date()
                 };
@@ -145,7 +145,7 @@ function getB2C_BCH() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
-                    last: ticker.a,
+                    volume: ticker.a,
                     avarage: ticker.av,
                     date: new Date()
                 };
@@ -228,7 +228,7 @@ function getB2C_LTC() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
-                    last: ticker.a,
+                    volume: ticker.a,
                     avarage: ticker.av,
                     date: new Date()
                 };
