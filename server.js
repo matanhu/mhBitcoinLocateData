@@ -62,6 +62,8 @@ function getB2C_BTC() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
+                    last: ticker.a,
+                    avarage: ticker.av,
                     date: new Date()
                 };
                 B2C_Firebase.getLastRate('BTC').then((snapshot) => {
@@ -143,6 +145,8 @@ function getB2C_BCH() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
+                    last: ticker.a,
+                    avarage: ticker.av,
                     date: new Date()
                 };
                 B2C_Firebase.getLastRate('BCH').then((snapshot) => {
@@ -224,6 +228,8 @@ function getB2C_LTC() {
                 var rate = {
                     sellPrice: ticker.l,
                     buyPrice: ticker.h,
+                    last: ticker.a,
+                    avarage: ticker.av,
                     date: new Date()
                 };
                 B2C_Firebase.getLastRate('LTC').then((snapshot) => {
