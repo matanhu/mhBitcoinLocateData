@@ -268,7 +268,7 @@ function checkTwoNumbers(cryptoType, lastRate, newRate) {
     if (lastRate.buyPrice > 10000 || newRate.buyPrice > 10000 || lastRate.sellPrice > 10000 || newRate.sellPrice > 10000) {
         if ((Math.floor(lastRate.buyPrice / 1000) != Math.floor(newRate.buyPrice / 1000)) ||
             (Math.floor(lastRate.sellPrice / 1000) != Math.floor(newRate.sellPrice / 1000))) {
-            EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
+            // EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
             if (isSendFcm) {
                 FcmSender.sendFcm(cryptoType, newRate, lastRate, function () {
                     isSendFcm = false;
