@@ -273,6 +273,54 @@ function getB2C_LTC() {
     });
 }
 
+function getB2C_BTG() {
+    bit2c.getTicker('BtgNis', function (error, ticker) {
+
+        try {
+            if (error) {
+                console.error('bit2c.getTicker error BtgNis: ' + error + ' ' + new Date());
+                setTimeout(getB2C_BTG, 5000);
+                return;
+            } else {
+                var rate = {
+                    sellPrice: ticker.l,
+                    buyPrice: ticker.h,
+                    volume: ticker.a,
+                    avarage: ticker.av,
+                    date: new Date()
+                };
+                B2C_Firebase.getLastRate('BTG').then((snapshot) => {
+                    var arraySnapshot = snapshotToArray(snapshot);
+                    // if(rows && !rows.length || (rows[0].sellPrice != rate.sellPrice || rows[0].buyPrice != rate.buyPrice)) {
+                    if (arraySnapshot && !arraySnapshot.length || (Math.abs(arraySnapshot[0].sellPrice - rate.sellPrice) > 10 || Math.abs(arraySnapshot[0].buyPrice - rate.buyPrice) > 10)) {
+                        B2C_Firebase.addRate('BTG', rate).then((value) => {
+                            console.log('B2C_BTG.addRate BtgNis: Databes Inserted ' + new Date());
+                            setTimeout(getB2C_BTG, 5000);
+                        }, (err) => {
+                            console.error("B2C_BTG.addRate(rate) Error: " + err + ' ' + new Date());
+                            setTimeout(getB2C_BTG, 5000);
+                            return;
+                        });
+                        if (arraySnapshot.length > 0) {
+                            checkTwoNumbers('BtgNis', arraySnapshot[0], rate);
+                        }
+                    } else {
+                        setTimeout(getB2C_BTG, 5000);
+                        return;
+                    }
+                }, (err)=> {
+                    console.error("B2C_BTG.getLastRate() Error: " + err + ' ' + new Date());
+                    setTimeout(getB2C_BTG, 5000);
+                    return;
+                });
+            }
+        } catch (ex) {
+            console.error('bit2c.getTicker exeption BtgNis: ' + ex + ' ' + new Date());
+        }
+
+    });
+}
+
 function checkTwoNumbers(cryptoType, lastRate, newRate) {
     if (lastRate.buyPrice > 10000 || newRate.buyPrice > 10000 || lastRate.sellPrice > 10000 || newRate.sellPrice > 10000) {
         if ((Math.floor(lastRate.buyPrice / 1000) != Math.floor(newRate.buyPrice / 1000)) ||
@@ -362,13 +410,29 @@ function sendReport() {
                             buyPrice: ticker.h,
                             date: new Date()
                         };
-                        FcmSender.sendFcmReport(btc, bch, ltc, function () {
-                            console.log('Report sent');
-                        });
                     }
                 } catch (ex) {
                     console.error(ex);
                 }
+                bit2c.getTicker('BtgNis', function (error, ticker) {
+                    try {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            // console.log(ticker);
+                            var btg = {
+                                sellPrice: ticker.l,
+                                buyPrice: ticker.h,
+                                date: new Date()
+                            };
+                            FcmSender.sendFcmReport(btc, bch, ltc, btg, function () {
+                                console.log('Report sent');
+                            });
+                        }
+                    } catch (ex) {
+                        console.error(ex);
+                    }
+                })
             })
         })
     })
