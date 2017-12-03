@@ -460,6 +460,8 @@ setTimeout(getB2C_BCH, 5000);
 // setInterval(getB2C_LTC, 5000);
 setTimeout(getB2C_LTC, 5000);
 
+setTimeout(getB2C_BTG, 5000);
+
 setInterval(sendReport, 3600000);
 
 var port = Number(process.env.PORT || 3000);
