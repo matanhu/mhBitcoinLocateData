@@ -7,6 +7,7 @@ var B2C_Firebase = {
     addRate: function (currencyName, Rate) {
         Rate.date = new Date().getTime();
         Rate.dateString = new Date().toString();
+        Rate.order = (new Date().getTime())*(-1);
         return firebase.database().ref(currencyName + '/').push(Rate);
     }
 };

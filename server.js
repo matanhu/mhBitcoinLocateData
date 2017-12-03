@@ -15,6 +15,15 @@ let price = 25000;
 var count = 1;
 var isSendFcm = true;
 
+var http = require("http");
+setInterval(function() {
+    http.get("https://mh-bitcoin-locate-data.herokuapp.com/");
+}, 300000); // every 5 minutes (300000)
+
+app.get('/', function(req, res) {
+    res.send('Hello World');
+})
+
 /*
 function getB2C_BTC() {
     bit2c.getTicker('BtcNis', function (error, ticker) {
