@@ -1,4 +1,5 @@
 var FCM = require('fcm-push');
+var b2c = require('../BTC_FIREBASE/B2C_BTC');
 
 var serverKey = 'AAAAcEgFqfQ:APA91bGfR1qOkiWHUTUhc7Vk1-Qn6-hx7Cb_Ir-koWYUG7cly4TkpJTFgWdXw4QcUcCmWv7RahO_mw1W9VVcrWlb5BuOneJMfUzBTeSqICGkfYlyP9SXPtWpM1dfMg2cgfE4micoe6oP';
 var fcm = new FCM(serverKey);
@@ -24,7 +25,12 @@ var FcmSender = {
         fcm.send(message)
             .then(function (response) {
                 console.log("Successfully sent with response: ", response);
-                callback();
+                b2c.addMessageNotification(cryptoType, newRate, lastRate).then(
+                    (res)=> {
+                        callback();
+                    }, (error) => {
+                        console.error("b2c.addMessageNotification Error: " + error);;
+                    });
             })
             .catch(function (err) {
                 console.log("Something has gone wrong!");
