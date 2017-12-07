@@ -340,7 +340,7 @@ function checkTwoNumbers(cryptoType, lastRate, newRate) {
     if (lastRate.buyPrice > 1000 || newRate.buyPrice > 1000 || lastRate.sellPrice > 1000 || newRate.sellPrice > 1000) {
         if ((Math.floor(lastRate.buyPrice / 100) != Math.floor(newRate.buyPrice / 100)) ||
             (Math.floor(lastRate.sellPrice / 100) != Math.floor(newRate.sellPrice / 100))) {
-            EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
+            // EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
             if (isSendFcm) {
                 FcmSender.sendFcm(cryptoType, newRate, lastRate, function () {
                     isSendFcm = false;
@@ -356,7 +356,7 @@ function checkTwoNumbers(cryptoType, lastRate, newRate) {
     if (lastRate.buyPrice > 100 || newRate.buyPrice > 100 || lastRate.sellPrice > 100 || newRate.sellPrice > 100) {
         if ((Math.floor(lastRate.buyPrice / 10) != Math.floor(newRate.buyPrice / 10)) ||
             (Math.floor(lastRate.sellPrice / 10) != Math.floor(newRate.sellPrice / 10))) {
-            EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
+            // EmailFactory.sendEmailWithLink(cryptoType, lastRate, newRate);
             if (isSendFcm) {
                 FcmSender.sendFcm(cryptoType, newRate, lastRate, function () {
                     isSendFcm = false;
