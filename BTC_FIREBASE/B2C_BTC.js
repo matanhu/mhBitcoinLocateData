@@ -16,7 +16,9 @@ var B2C_Firebase = {
             newRateBuyPrice: newRate.buyPrice,
             newRateSellPrice: newRate.sellPrice,
             lastRateBuyPrice: lastRate.buyPrice,
-            lastRateSellPrice: lastRate.sellPrice
+            lastRateSellPrice: lastRate.sellPrice,
+            date: new Date().getTime(),
+            order: (new Date().getTime())*(-1)
         }
         return firebase.database().ref('MessageNotification/').push(messageRates);
     }
