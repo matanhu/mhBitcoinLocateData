@@ -29,7 +29,7 @@ var FcmSender = {
                     (res)=> {
                         callback();
                     }, (error) => {
-                        console.error("b2c.addMessageNotification Error: " + error);;
+                        console.error("b2c.addMessageNotification Error: " + error);
                     });
             })
             .catch(function (err) {
