@@ -18,7 +18,10 @@ var FcmSender = {
             },
             data: {
                 volume: "3.21.15",
-                contents: "מחיר חדש קנייה: " + newRate.buyPrice + " מחיר חדש מכירה: " + newRate.sellPrice + '\n' + "מחיר ישן קנייה: " + lastRate.buyPrice + " מחיר ישן מכירה: " + lastRate.sellPrice
+                "cryptoType": "NisBtc",
+                "date": new Date(),
+                "contentsNew": "מחיר חדש קנייה: " + newRate.buyPrice + " מחיר חדש מכירה: " + newRate.sellPrice,
+                "contentsLast": "מחיר ישן קנייה: " + lastRate.buyPrice + " מחיר ישן מכירה: " + lastRate.sellPrice
             }
         };
 
