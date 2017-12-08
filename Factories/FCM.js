@@ -14,7 +14,8 @@ var FcmSender = {
                 body: "מחיר חדש קנייה: " + newRate.buyPrice + " מחיר חדש מכירה: " + newRate.sellPrice + '\n' + "מחיר ישן קנייה: " + lastRate.buyPrice + " מחיר ישן מכירה: " + lastRate.sellPrice,
                 title: "שינוי ב " + cryptoType,
                 icon: "new",
-                sound: ""
+                sound: "",
+                click_action: "FCM_PLUGIN_ACTIVITY"
             },
             data: {
                 volume: "3.21.15",
