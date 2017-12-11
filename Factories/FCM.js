@@ -7,7 +7,7 @@ var fcm = new FCM(serverKey);
 var FcmSender = {
     sendFcm: function (cryptoType, newRate, lastRate, callback) {
         var message = {
-            to: "dxu4TU_o7rY:APA91bGq7M8gAzk7utAhHWdGOARJ2mpEmyB1FvVsXZOBQsBBr3fRSfhCsj9QXnt8jrFJ6fNI6xfQUOc6ggI5GMWL5K3UOXhJrtFKeaPLHJj5FxK6pQphEcv2tV5FgPtgBkRRM0VRU2wx",
+            to: "cx8bgqgLubU:APA91bH_oNbs1izNAGFIcoHzolySVLz6qO7x9QlXKoTxIvzINiPrE6psGXwvvwlQZrcGGgLR5MqEUdVODG1p1Wn2ZbE7-hqs667Au22uEL-t5k1EsvSVw2nre4HMfiYvoQ8GYkxYKXeq",
             priority: "high",
             content_available: true,
             notification: {
@@ -44,7 +44,7 @@ var FcmSender = {
 
     sendFcmReport: function (btc, bch, ltc, btg, callback) {
         var message = {
-            to: "dxu4TU_o7rY:APA91bGq7M8gAzk7utAhHWdGOARJ2mpEmyB1FvVsXZOBQsBBr3fRSfhCsj9QXnt8jrFJ6fNI6xfQUOc6ggI5GMWL5K3UOXhJrtFKeaPLHJj5FxK6pQphEcv2tV5FgPtgBkRRM0VRU2wx",
+            to: "cx8bgqgLubU:APA91bH_oNbs1izNAGFIcoHzolySVLz6qO7x9QlXKoTxIvzINiPrE6psGXwvvwlQZrcGGgLR5MqEUdVODG1p1Wn2ZbE7-hqs667Au22uEL-t5k1EsvSVw2nre4HMfiYvoQ8GYkxYKXeq",
             priority: "high",
             content_available: true,
             notification: {
