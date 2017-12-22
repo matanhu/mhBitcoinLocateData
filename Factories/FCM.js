@@ -68,7 +68,12 @@ var FcmSender = {
         fcm.send(message)
             .then(function (response) {
                 console.log("Successfully sent with response: ", response);
-                callback();
+                b2c.addReportNotification(btc, bch, ltc, btg).then(
+                    (res)=> {
+                        callback();
+                    }, (error) => {
+                        console.error("b2c.addReportNotification Error: " + error);
+                    });
             })
             .catch(function (err) {
                 console.log("Something has gone wrong!");

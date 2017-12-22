@@ -9,6 +9,8 @@ var FcmSender = require('./Factories/FCM');
 var express = require('express'); // for Heroku
 var app = express(); // for Heroku
 
+var FCM2 = require('./Factories/FCM2');
+
 // getting current ticker
 
 let price = 25000;
@@ -22,7 +24,12 @@ setInterval(function() {
 
 app.get('/', function(req, res) {
     res.send('Hello World');
-})
+});
+
+app.get('/FcmTest', function(req, res) {
+    FCM2.test();
+    res.send('Hello World');
+});
 
 /*
 function getB2C_BTC() {
@@ -451,6 +458,8 @@ function snapshotToArray(snapshot) {
     return returnArr;
 };
 
+
+
 // setInterval(getB2C_BTCH 5000);
 setTimeout(getB2C_BTC, 5000);
 
@@ -464,5 +473,8 @@ setTimeout(getB2C_BTG, 5000);
 
 setInterval(sendReport, 3600000);
 
+
 var port = Number(process.env.PORT || 3000);
 app.listen(port);
+
+sendReport();

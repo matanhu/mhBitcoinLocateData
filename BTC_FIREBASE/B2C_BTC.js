@@ -21,6 +21,17 @@ var B2C_Firebase = {
             order: (new Date().getTime())*(-1)
         }
         return firebase.database().ref('MessageNotification/').push(messageRates);
+    },
+    addReportNotification: function(btc, bch, ltc, btg) {
+        var report = {
+            btc: btc,
+            bch: bch,
+            ltc: ltc,
+            btg: btg,
+            date: new Date().getTime(),
+            order: (new Date().getTime())*(-1)
+        }
+        return firebase.database().ref('ReportNotification/').push(report);
     }
 };
 module.exports = B2C_Firebase; 
